@@ -20,4 +20,4 @@ jobs:
 
     - name: Copy files to server
       run: |
-        rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./my_website/index.html ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_SERVER }}:/var/www/my_website/
+        rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./index.html ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_SERVER }}:/var/www/
