@@ -1,0 +1,23 @@
+name: Deploy Static HTML to Nginx Server
+
+on:
+  push:
+    branches:
+      - main  # or your default branch name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup SSH agent
+      uses: webfactory/ssh-agent@v0.5.4
+      with:
+        ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
+
+    - name: Copy files to server
+      run: |
+        rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./index.html ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_SERVER }}:/var/www/my_website/
